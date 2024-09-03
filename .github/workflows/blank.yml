@@ -1,0 +1,19 @@
+name: Fetch Modified Files
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name if different
+
+jobs:
+  fetch-modified-files:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Get list of modified files
+      run: |
+        git fetch origin ${{ github.ref }}
+        git diff --name-only ${{ github.sha }}^ ${{ github.sha }}
